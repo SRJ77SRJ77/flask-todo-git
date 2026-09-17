@@ -47,5 +47,12 @@ def api():
     return jsonify(data)
 
 
+@app.route("/submittodoitem", methods=["POST"])
+def submit_todo_item():
+    item = {"itemName": request.form.get("itemName"),
+            "itemDescription": request.form.get("itemDescription")}
+    db.todos.insert_one(item)
+    return jsonify({"message": "Item saved"}), 201
+
 if __name__ == "__main__":
     app.run(debug=True)
